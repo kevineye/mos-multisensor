@@ -14,10 +14,18 @@ config_schema:
   - ["i2c.sda_gpio", 4]
   - ["i2c.scl_gpio", 5]
   - ["app", "o", {title: "App settings"}]
+  - ["app.mqtt_topic", "s", "home/dev", {title: "MQTT topic base"}]
   - ["app.led_pin", "i", 2, {title: "built-in LED GPIO pin"}]
-  - ["app.sample_frequency", "i", 5000, {title: "sensor sampling frquency, ms"}]
-  - ["app.mqtt_topic", "s", "home/dev/sensors", {title: "MQTT topic to publish sensor data"}]
-  - ["app.zone", "i", 0, {title: "sensor zone to report"}]
+  - ["temp", "o", {title: "Temperature sensor settings"}]
+  - ["temp.mqtt_topic", "s", "temp", {title: "relative topic to post temp data"}]
+  - ["temp.zone", "i", 0, {title: "sensor zone to report"}]
+  - ["temp.sample_frequency", "i", 5000, {title: "sensor sampling frquency, ms"}]
+  - ["button", "o", {title: "Button settings"}]
+  - ["button.mqtt_topic", "s", "button", {title: "relative topic to post button events"}]
+  - ["button.debounce", "i", 20, {title: "button debounce time, ms"}]
+  - ["button.threshold", "i", 300, {title: "button double-click threshold, ms"}]
+  - ["button.pin_1", "i", 0, {title: "button 1 GPIO pin (default GPIO 0 = D3)"}]
+  - ["button.pin_2", "i", 14, {title: "button 2 GPIO pin (default GPIO 14 = D5)"}]
 
 libs:
   - origin: https://github.com/mongoose-os-libs/arduino-adafruit-htu21df
