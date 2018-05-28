@@ -29,12 +29,12 @@ let Button = {
       if (d.oneago !== d.state) {
         d.state = d.oneago;
         d.lastchange = d.n - 1;
-        if (d.state === 1) d.presses++;
+        if (d.state === d.up) d.presses++;
       }
       if (d.presses >= 3 || (d.n - d.lastchange) * Button.debounce >= Button.threshold) {
         Timer.del(d.timer);
         GPIO.enable_int(d.pin);
-        if (d.state === 1) {
+        if (d.state === d.up) {
           Button.press({
             button: d.id,
             event: 'press-' + (d.presses === 1 ? 'single' : d.presses === 2 ? 'double' : 'triple')
@@ -51,7 +51,7 @@ let Button = {
     let d = Button.buttons[p];
     Button.press({button: d.id, event: 'press'});
     d.n = 0;
-    d.state = 0; // 0 = down
+    d.state = d.down;
     d.lastchange = 0;
     d.presses = 0;
     d.twoago = 0;
@@ -65,11 +65,14 @@ let Button = {
     Button.buttons[gpio_pin] = {
       id: Button.count,
       pin: gpio_pin,
+      up: 1,
+      down: 0,
     };
     GPIO.set_mode(gpio_pin, GPIO.MODE_INPUT);
     GPIO.set_pull(gpio_pin, GPIO.PULL_UP);
     GPIO.set_int_handler(gpio_pin, GPIO.INT_EDGE_NEG, Button._int_cb, null);
     GPIO.enable_int(gpio_pin);
-  }
+  },
+
 };
 
