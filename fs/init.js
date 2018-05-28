@@ -1,6 +1,7 @@
 load('button.js');
 load('ready.js');
 load('temp-htu21df.js');
+load('pixels.js');
 
 Ready.init();
 Temp.init();

@@ -15,7 +15,7 @@ config_schema:
   - ["i2c.scl_gpio", 5]
   - ["app", "o", {title: "App settings"}]
   - ["app.mqtt_topic", "s", "home/dev", {title: "MQTT topic base"}]
-  - ["app.led_pin", "i", 2, {title: "built-in LED GPIO pin"}]
+  - ["app.led_pin", "i", 2, {title: "built-in LED GPIO pin (default GPIO2 = D4)"}]
   - ["temp", "o", {title: "Temperature sensor settings"}]
   - ["temp.mqtt_topic", "s", "temp", {title: "relative topic to post temp data"}]
   - ["temp.zone", "i", 0, {title: "sensor zone to report"}]
@@ -24,10 +24,14 @@ config_schema:
   - ["button.mqtt_topic", "s", "button", {title: "relative topic to post button events"}]
   - ["button.debounce", "i", 20, {title: "button debounce time, ms"}]
   - ["button.threshold", "i", 300, {title: "button double-click threshold, ms"}]
-  - ["button.pin_1", "i", 0, {title: "button 1 GPIO pin (default GPIO 0 = D3)"}]
-  - ["button.pin_2", "i", 14, {title: "button 2 GPIO pin (default GPIO 14 = D5)"}]
+  - ["button.pin_1", "i", 0, {title: "button 1 GPIO pin (default GPIO12 = D6)"}]
+  - ["button.pin_2", "i", 14, {title: "button 2 GPIO pin (default GPIO13 = D7)"}]
+  - ["pixels", "o", {title: "Neopixel settings"}]
+  - ["pixels.count", "i", 8, {title: "neopixel count (default 8)"}]
+  - ["pixels.pin", "i", 16, {title: "neopixel GPIO pin (default GPIO14 = D5)"}]
 
 libs:
+  - origin: https://github.com/kevineye/mos-arduino-ws2812fx
   - origin: https://github.com/mongoose-os-libs/arduino-adafruit-htu21df
   - origin: https://github.com/mongoose-os-libs/ca-bundle
   - origin: https://github.com/mongoose-os-libs/i2c
