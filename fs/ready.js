@@ -1,6 +1,5 @@
 load('api_log.js');
 load('api_mqtt.js');
-load('pixels.js');
 
 let Ready = {
 
@@ -8,13 +7,13 @@ let Ready = {
     if (ev === MQTT.EV_CONNACK) {
       Log.info("MQTT connected");
       Log.info("app initialization complete");
-      Pixels.success();
+      Feedback.success();
     }
   },
 
   init: function () {
     Log.info("app initialization starting");
-    Pixels.waiting();
+    Feedback.waiting();
     MQTT.setEventHandler(Ready._mqtt_connect, null);
   },
 

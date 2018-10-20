@@ -39,8 +39,10 @@ let Button = {
             button: d.id,
             event: 'press-' + (d.presses === 1 ? 'single' : d.presses === 2 ? 'double' : 'triple')
           });
+          Feedback.press();
         } else {
           Button.press({button: d.id, event: 'press-long'});
+          Feedback.press();
         }
       }
     }
@@ -61,6 +63,7 @@ let Button = {
   },
 
   init: function (gpio_pin) {
+    if (gpio_pin < 0) return;
     Button.count++;
     Button.buttons[gpio_pin] = {
       id: Button.count,

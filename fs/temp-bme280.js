@@ -1,4 +1,4 @@
-load('api_arduino_htu21df.js');
+load('api_bme280.js');
 load('api_config.js');
 load('api_log.js');
 load('api_mqtt.js');
@@ -6,14 +6,14 @@ load('api_rpc.js');
 load('api_timer.js');
 
 let Temp = {
-  htu: null,
+  bme: null,
   lastTemperature: 0,
   lastHumidity: 0,
 
   read: function () {
     return {
-      temperature: Math.round(Temp.htu.readTemperature() * 90 / 5 + 320) / 10,
-      humidity: Math.max(Math.min(Math.round(Temp.htu.readHumidity()), 100), 0),
+      temperature: Math.round(Temp.bme.readTemp() * 90 / 5 + 320) / 10,
+      humidity: Math.max(Math.min(Math.round(Temp.bme.readHumid()), 100), 0),
     };
   },
 
@@ -31,16 +31,16 @@ let Temp = {
     }
   },
 
-  init: function () {
-    Temp.htu = Adafruit_HTU21DF.create();
+  init: function (addr) {
+    Temp.bme = BME280.createI2C(addr);
     Temp.lastTemperature = -100;
     Temp.lastHumidity = -1;
-    if (Temp.htu.begin() === 1) {
-      Log.info("initialized HTU21DF sensor");
+    if (Temp.bme !== null) {
+      Log.info("initialized BME280 sensor");
       RPC.addHandler('Temp.Read', Temp.read);
-      //Timer.set(Cfg.get('temp.sample_frequency'), Timer.REPEAT, Temp.check, null);
+      Timer.set(Cfg.get('temp.sample_frequency'), Timer.REPEAT, Temp.check, null);
     } else {
-      Log.error("no HTU21DF sensor found");
+      Log.error("no BME280 sensor found");
     }
   },
 

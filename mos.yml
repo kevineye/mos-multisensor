@@ -17,22 +17,35 @@ config_schema:
   - ["app.mqtt_topic", "s", "home/dev", {title: "MQTT topic base"}]
   - ["app.led_pin", "i", 2, {title: "built-in LED GPIO pin (default GPIO2 = D4)"}]
   - ["temp", "o", {title: "Temperature sensor settings"}]
+  - ["temp.addr", "i", 119, {title: "bme280 i2c address (default = 119 = 0x77)"}]
   - ["temp.mqtt_topic", "s", "temp", {title: "relative topic to post temp data"}]
-  - ["temp.zone", "i", 0, {title: "sensor zone to report"}]
-  - ["temp.sample_frequency", "i", 5000, {title: "sensor sampling frquency, ms"}]
+  - ["temp.zone", "i", 0, {title: "temp sensor zone to report"}]
+  - ["temp.sample_frequency", "i", 5000, {title: "temp sensor sampling frequency, ms"}]
   - ["button", "o", {title: "Button settings"}]
   - ["button.mqtt_topic", "s", "button", {title: "relative topic to post button events"}]
   - ["button.debounce", "i", 20, {title: "button debounce time, ms"}]
   - ["button.threshold", "i", 300, {title: "button double-click threshold, ms"}]
-  - ["button.pin_1", "i", 0, {title: "button 1 GPIO pin (default GPIO12 = D6)"}]
-  - ["button.pin_2", "i", 14, {title: "button 2 GPIO pin (default GPIO13 = D7)"}]
+  - ["button.pin_1", "i", 0, {title: "button 1 GPIO pin (default GPIO0 = D3)"}]
+  - ["button.pin_2", "i", 13, {title: "button 2 GPIO pin (default GPIO13 = D7)"}]
   - ["pixels", "o", {title: "Neopixel settings"}]
   - ["pixels.count", "i", 8, {title: "neopixel count (default 8)"}]
-  - ["pixels.pin", "i", 16, {title: "neopixel GPIO pin (default GPIO14 = D5)"}]
+  - ["pixels.pin", "i", 14, {title: "neopixel GPIO pin (default GPIO14 = D5)"}]
+  - ["motion", "o", {title: "Motion sensor settings"}]
+  - ["motion.mqtt_topic", "s", "motion", {title: "relative topic to post motion events"}]
+  - ["motion.pin", "i", 12, {title: "motion sensor GPIO pin (default GPIO12 = D6)"}]
+  - ["relay", "o", {title: "Switch settings"}]
+  - ["relay.mqtt_topic", "s", "switch", {title: "relative topic to post/receive switch events"}]
+  - ["relay.pin", "i", 15, {title: "switch GPIO pin (default GPIO15 = D8)"}]
+  - ["light", "o", {title: "Light sensor settings"}]
+  - ["light.addr", "i", 57, {title: "light sensor i2c address (default = 57 = 0x39)"}]
+  - ["light.mqtt_topic", "s", "light", {title: "relative topic to post light data"}]
+  - ["light.sample_frequency", "i", 5000, {title: "light sensor sampling frequency, ms"}]
 
 libs:
   - origin: https://github.com/kevineye/mos-arduino-ws2812fx
   - origin: https://github.com/mongoose-os-libs/arduino-adafruit-htu21df
+  - origin: https://github.com/mongoose-os-libs/arduino-adafruit-tsl2561
+  - origin: https://github.com/mongoose-os-libs/bme280
   - origin: https://github.com/mongoose-os-libs/ca-bundle
   - origin: https://github.com/mongoose-os-libs/i2c
   - origin: https://github.com/mongoose-os-libs/mjs
